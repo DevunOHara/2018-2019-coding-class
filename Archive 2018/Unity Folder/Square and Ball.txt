@@ -1,0 +1,81 @@
+Ball
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Ball : MonoBehaviour
+{
+    Vector3 velocity = new Vector3(0, 0, 0);
+    float speed = 1.5f;
+	// Use this for initialization
+	void Start ()
+    {
+        velocity = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
+        velocity.Normalize();
+    }
+	
+	// Update is called once per frame
+	void Update ()
+    {
+		
+	}
+}
+
+--------------------------------------------------------------------------------------------------------
+
+Square
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Square : MonoBehaviour
+{
+    [SerializeField]
+    float speed = 2f;
+
+    // Use this for initialization
+    void Start()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+    }
+    Vector3 velocity = new Vector3(0, 0, 0);
+    // Update is called once per frame
+    void Update()
+    {
+        velocity = new Vector3(0, 0, 0);
+        if (Input.GetKey(KeyCode.W))
+        {
+            if (transform.position.y < 1)
+                velocity += Vector3.up;
+        }
+
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            if (transform.position.y > -1)
+                velocity += Vector3.down;
+        }
+
+
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            if (transform.position.x > -1.75f)
+                velocity += Vector3.left;
+        }
+
+
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            if (transform.position.x < 1.75f)
+                velocity += Vector3.right;
+        }
+        velocity.Normalize();
+        transform.position += velocity * Time.deltaTime * speed;
+
+
+    }
+}
